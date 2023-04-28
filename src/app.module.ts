@@ -1,35 +1,30 @@
-import { UserSessionController } from './modules/user-session/user-session.controller';
+import { UserSessionController } from './user-session/user-session.controller';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
-import { UserRepository } from './modules/user/user.repository';
-import { AuthService } from './modules/user-session/user-session.service';
-import { UserService } from './modules/user/user.service';
-import { Music } from './entities/music.entity';
-import { Playlist } from './entities/playlist.entity'; 
+import { User } from './user/entity/user.entity';
+import { UserRepository } from './user/user.repository';
+import { AuthService } from './user-session/user-session.service';
+import { UserService } from './user/user.service';
+import { Music } from './music/entity/music.entity';
+import { Playlist } from './playlist/entity/playlist.entity'; 
 import { JwtModule } from '@nestjs/jwt';
-import { UserController } from './modules/user/user.controller';
+import { UserController } from './user/user.controller';
+import { DBConfigService } from './config/db.config.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({ 
-      entities: [User, Music,Playlist],
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'root',
-      password: '12345678',
-      database: 'mydatabase',
-      autoLoadEntities: true,
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal:true
     }),
-    TypeOrmModule.forFeature([UserRepository]),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
-    }),
+    TypeOrmModule.forRootAsync({
+      useClass:DBConfigService,
+      inject:[DBConfigService]
+    })
   ],
-  controllers: [UserSessionController, UserController],
+  controllers: [
+    UserSessionController,
+    UserController],
   providers: [AuthService, UserService],
 })
 export class AppModule {}

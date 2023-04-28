@@ -1,14 +1,14 @@
+import { MusicEntity } from 'src/music/entity/music.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { Music } from './music.entity';
 
 @Entity()
-export class Album {
+export class AlbumEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @OneToMany(() => Music, music => music.album)
-  musicas: Music[];
+  @OneToMany(() => MusicEntity, music => music.album)
+  musicas: MusicEntity[];
 }

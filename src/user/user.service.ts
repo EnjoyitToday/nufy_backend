@@ -1,8 +1,8 @@
-import { User } from '../../entities/user.entity';
+import { User } from './entity/user.entity';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
-import { CreateUserDto } from 'src/dtos/create-user.dto';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { genSaltSync, hashSync } from "bcryptjs";
 
 @Injectable()
@@ -16,7 +16,6 @@ export class UserService {
     return await this.userRepository.findByEmail(email);
   }
 
-  a
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     const { username, email, password } = createUserDto;
 
