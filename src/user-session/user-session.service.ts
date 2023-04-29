@@ -1,7 +1,7 @@
 import { UserService } from 'src/user/user.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common'; 
 import * as bcrypt from 'bcryptjs';
-import { User } from 'src/user/entity/user.entity';
+import { UserEntity } from 'src/user/entity/user.entity';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class AuthService {
   ) {}
 
   async login(email: string, password: string): Promise<{ accessToken: string }> {
-    const user: User = await this.userService.findByEmail(email);
+    const user: UserEntity = await this.userService.findByEmail(email);
 
     if (!user) {
       throw new UnauthorizedException('Email ou senha incorretos.');

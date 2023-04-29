@@ -1,4 +1,4 @@
-import { User } from './entity/user.entity';
+import { UserEntity } from './entity/user.entity';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
@@ -12,15 +12,15 @@ export class UserService {
     private userRepository: UserRepository,
   ) {}
 
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<UserEntity | undefined> {
     return await this.userRepository.findByEmail(email);
   }
   
-  async findById(userId: number): Promise<User | undefined> {
+  async findById(userId: number): Promise<UserEntity | undefined> {
     return await this.userRepository.findById(userId);
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
     const { username, email, password } = createUserDto;
 
     if (!email.match(/\S+@\S+\.\S+/)) {
