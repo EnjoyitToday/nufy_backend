@@ -12,10 +12,10 @@ export class DBConfigService implements TypeOrmOptionsFactory{
     constructor(private configService:ConfigService){}
 
     createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> {
-        return{
+        return {
                 entities: [UserEntity,MusicEntity,PlaylistEntity,AlbumEntity ],
-                connectString:this.configService.get<string>('connect')
-
+                connectString: this.configService.get<string>('connect'),
+                jwtSecret: this.configService.get<string>('JWT_SECRET') 
         }
     }
 }

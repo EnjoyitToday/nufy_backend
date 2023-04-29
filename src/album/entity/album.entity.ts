@@ -10,5 +10,6 @@ export class AlbumEntity {
   name: string;
 
   @OneToMany(() => MusicEntity, music => music.album)
-  musicas: MusicEntity[];
+  music: MusicEntity[];
+
 }

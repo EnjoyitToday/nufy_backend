@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany } from 'typeorm';
 import { AlbumEntity } from '../../album/entity/album.entity';
 import { PlaylistEntity } from '../../playlist/entity/playlist.entity';
-import { Length } from 'class-validator';
 
 @Entity({name:'MUSIC'})
 export class MusicEntity {
@@ -26,6 +25,6 @@ export class MusicEntity {
   @ManyToOne(() => AlbumEntity, album => album.music)
   album: AlbumEntity;  
   
-  @ManyToMany(() => PlaylistEntity, playlist => playlist.musics)
+  @ManyToMany(() => PlaylistEntity, playlist => playlist.music)
   playlists: PlaylistEntity
 }

@@ -1,21 +1,20 @@
-import { Music } from 'src/music/entity/music.entity';
+import { MusicEntity } from 'src/music/entity/music.entity';
 import { MusicService } from './music.service';
-import { Controller, Post, Query } from '@nestjs/common';
+import { Controller, Get, Post, Query } from '@nestjs/common';
 
 @Controller('musics')
 export class MusicController {
   constructor(private readonly musicService: MusicService) {}
 
   @Get()
-  async getMusics():Promise<Music>{
-    return this.musicService.
+  async getMusics():Promise<MusicEntity>{
+    return this.musicService.getMusics();
   }
 
-
-
-  @Post('musics')
-  async getByName(@Query('name') name: string): Promise<Music[]> {
-    
-    return await this.musicService.getMusicByName(name);
+  @Get()
+  async getMusicByName(@Query() music_name: string):Promise<MusicEntity[]>{
+    return this.musicService.getMusicByName(music_name)
   }
+ 
+  //add criar musica
 }

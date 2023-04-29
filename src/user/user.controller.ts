@@ -1,29 +1,40 @@
-import { Body, Controller, Post, Put } from "@nestjs/common";
+import { Body, Controller, Post, Put, Headers, UseGuards, Get, Patch } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "src/user/dto/create-user.dto";
-import { User } from "src/user/entity/user.entity";
+import { UserEntity } from "src/user/entity/user.entity";
+import { AuthGuard } from "src/commom/auth.guard";
 
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @UseGuards(AuthGuard)
+  @Get()
+  async getUser(@Headers('userId') userId: number): Promise<UserEntity> {
+    return await this.userService.findById(userId);
+  }
+
   @Post()
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+  async createUser(@Body() createUserDto: CreateUserDto): Promise<UserEntity> {
     return await this.userService.createUser(createUserDto);
   }
 
-  @Put('username')
-  async updateUsername(@Body() username:string ):Promise<User>{
+  @UseGuards(AuthGuard)
+  @Patch('username')
+  async updateUsername(@Body() username:string ):Promise<UserEntity>{
     return;
   }
 
-  @Put('email')
-  async updateEmail(@Body() email:string ):Promise<User>{
+  @UseGuards(AuthGuard)
+  @Patch('email')
+  async updateEmail(@Body() email:string ):Promise<UserEntity>{
     return;
   }
 
-  @Put('password')
-  async updatePassword(@Body() password:string ):Promise<User>{
+  @UseGuards(AuthGuard)
+  @Patch('password')
+  async updatePassword(@Body() password:string ):Promise<UserEntity>{
     return;
   }
+
 }

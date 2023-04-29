@@ -14,7 +14,7 @@ export class PlaylistEntity {
   private: boolean;
 
   @ManyToOne(() => UserEntity, user => user.playlists)
-  usuario: UserEntity;
+  user: UserEntity;
 
   @ManyToMany(() => MusicEntity, music => music.playlists)
   music: MusicEntity[];
