@@ -10,11 +10,9 @@ export class MusicRepository extends Repository<MusicEntity> {
     }
 
     async findByName(name: string): Promise<MusicEntity[]> {
-        const query = `SELECT * FROM music WHERE name LIKE ?`;
-
-        const results = await this.query(query, [`%${name}%`]);
-
-        return results;
+        return this.createQueryBuilder('music')
+            .where('music.name LIKE :name', { name: `%${name}%` })
+            .getMany();
     }
 
     async findById(id: number): Promise<MusicEntity> {

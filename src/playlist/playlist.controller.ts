@@ -23,6 +23,7 @@ export class PlaylistController {
   async getAll(): Promise<PlaylistEntity[]> {
     return await this.playlistService.getAll();
   };
+
   @Get('/user')
   async getByUserId(@Headers("user_id") userAuth: UserAuth): Promise<PlaylistEntity[]> {
     return await this.playlistService.findUserPlaylists(userAuth.userId);
