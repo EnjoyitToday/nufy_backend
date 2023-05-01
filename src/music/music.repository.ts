@@ -1,8 +1,13 @@
+import { Injectable } from '@nestjs/common';
 import { MusicEntity } from 'src/music/entity/music.entity';
-import { EntityRepository, Repository } from 'typeorm';
+import { DataSource, EntityRepository, Repository } from 'typeorm';
 
-@EntityRepository(MusicEntity)
+@Injectable()
 export class MusicRepository extends Repository<MusicEntity> {
+
+    constructor(private dataSource: DataSource) {
+        super(MusicEntity, dataSource.createEntityManager());
+    }
 
     async findByName(name: string): Promise<MusicEntity[]> {
         const query = `SELECT * FROM music WHERE name LIKE ?`;
@@ -12,7 +17,7 @@ export class MusicRepository extends Repository<MusicEntity> {
         return results;
     }
 
-    async findById(id: number):Promise<MusicEntity>{ 
+    async findById(id: number): Promise<MusicEntity> {
         return this.findOne({ where: { id } })
     }
 }

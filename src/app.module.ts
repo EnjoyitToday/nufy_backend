@@ -9,6 +9,8 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserModule } from './user/user.module'
 import { UserRepository } from './user/user.repository';
+import { MusicController } from './music/music.controller';
+import { PlaylistController } from './playlist/playlist.controller';
 
 @Module({
   imports: [
@@ -20,11 +22,13 @@ import { UserRepository } from './user/user.repository';
       useClass: DBConfigService,
       inject: [DBConfigService]
     }),
-    TypeOrmModule.forFeature([UserRepository])
   ],
   controllers: [
     UserSessionController,
-    UserController],
+    UserController,
+    MusicController,
+    PlaylistController,
+  ],
   providers: [AuthService, UserService, JwtService],
 })
 export class AppModule { }

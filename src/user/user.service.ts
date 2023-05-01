@@ -10,12 +10,12 @@ export class UserService {
   constructor(
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
-  ) {}
+  ) { }
 
   async findByEmail(email: string): Promise<UserEntity | undefined> {
     return await this.userRepository.findByEmail(email);
   }
-  
+
   async findById(userId: number): Promise<UserEntity | undefined> {
     return await this.userRepository.findById(userId);
   }
@@ -30,7 +30,6 @@ export class UserService {
     if (password.length < 8) {
       throw new ConflictException('A senha deve ter pelo menos 8 caracteres');
     }
-
     const userExists = await this.userRepository.findByEmail(email);
 
     if (userExists) {
@@ -40,7 +39,7 @@ export class UserService {
     const salt = genSaltSync();
     const hashedPassword = hashSync(password, salt);
 
-    const user = this.userRepository.create({ username, email, password:hashedPassword });
+    const user = this.userRepository.create({ username, email, password: hashedPassword });
 
     return await this.userRepository.save(user);
   }
