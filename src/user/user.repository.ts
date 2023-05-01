@@ -17,4 +17,8 @@ export class UserRepository extends Repository<UserEntity> {
     findById(id: number): Promise<UserEntity | undefined> {
         return this.findOne({ where: { id } });
     }
+
+    findByUsername(username: string): Promise<UserEntity | undefined> {
+        return this.findOne({ where: { username } });
+    }
 }

@@ -16,6 +16,10 @@ export class UserService {
     return await this.userRepository.findByEmail(email);
   }
 
+  async findByUsername(name: string): Promise<UserEntity | undefined> {
+    return await this.userRepository.findByUsername(name);
+  }
+
   async findById(userId: number): Promise<UserEntity | undefined> {
     return await this.userRepository.findById(userId);
   }
