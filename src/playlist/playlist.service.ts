@@ -16,11 +16,11 @@ export class PlaylistService {
 
   ) {}
     
-  async getPlaylistByName(name: string): Promise<PlaylistEntity[]> {
-    const playlists:PlaylistEntity[] = await this.playlistRepository.find({where:name});
+  // async getPlaylistByName(name: string): Promise<PlaylistEntity[]> {
+  //   const playlists:PlaylistEntity[] = await this.playlistRepository.find( {where : name} );
   
-    return playlists;
-  }
+  //   return playlists;
+  // }
 
   async createPlaylist(createPlaylist:createPlaylistDto):Promise<PlaylistEntity>{
 

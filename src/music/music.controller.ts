@@ -6,10 +6,10 @@ import { Controller, Get, Post, Query } from '@nestjs/common';
 export class MusicController {
   constructor(private readonly musicService: MusicService) {}
 
-  @Get()
-  async getMusics():Promise<MusicEntity>{
-    return this.musicService.getMusics();
-  }
+  // @Get()
+  // async getMusics():Promise<MusicEntity>{
+  //   // return this.musicService.getMusics();
+  // }
 
   @Get()
   async getMusicByName(@Query() music_name: string):Promise<MusicEntity[]>{

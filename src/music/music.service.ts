@@ -1,6 +1,6 @@
 import { UserService } from 'src/user/user.service';
 import { Get, Injectable, UnauthorizedException } from '@nestjs/common'; 
-import { Music, MusicEntity } from 'src/music/entity/music.entity';
+import {  MusicEntity } from 'src/music/entity/music.entity';
 import { MusicRepository } from './music.repository';
 
 @Injectable()
@@ -9,10 +9,10 @@ export class MusicService {
     private readonly musicRepository: MusicRepository,
   ) {}
 
-  @Get()
-  async getMusics():Promise<Music>{
-    this.musicRepository.
-  }
+  // @Get()
+  // async getMusics():Promise<MusicEntity>{
+  //   this.musicRepository.
+  // }
 
   @Get()
   async getMusicByName(music_name:string):Promise<MusicEntity[]>{

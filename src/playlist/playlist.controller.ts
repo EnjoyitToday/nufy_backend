@@ -17,10 +17,10 @@ export class PlaylistController {
     return this.playlistService.createPlaylist(createPlaylist)
   };
 
-  @Get()
-  async getByName(@Query('playlist_id') playlist_id: string,@Query('music_id') music_id: string): Promise<PlaylistEntity> {
-    return await this.playlistService.getMusicByName(name);
-  };
+  // @Get()
+  // async getByName(@Query('playlist_id') playlist_id: string,@Query('music_id') music_id: string): Promise<PlaylistEntity> {
+    // return await this.playlistService.getMusicByName(name);
+  // };
 
   @Post('music')
   async addMusicOnPlaylist(@Body() addMusic:AddMusicToPlaylistDto):Promise<PlaylistEntity>{
