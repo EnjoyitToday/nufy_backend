@@ -8,13 +8,19 @@ import { DBConfigService } from './config/db.config.service';
 import { ConfigModule } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserModule } from './user/user.module'
-import { UserRepository } from './user/user.repository';
 import { MusicController } from './music/music.controller';
 import { PlaylistController } from './playlist/playlist.controller';
+import { AlbumController } from './album/album.controller';
+import { AlbumModule } from './album/album.module';
+import { MusicModule } from './music/music.module';
+import { PlaylistModule } from './playlist/playlist.module';
 
 @Module({
   imports: [
     UserModule,
+    AlbumModule,
+    MusicModule,
+    PlaylistModule,
     ConfigModule.forRoot({
       isGlobal: true
     }),
@@ -26,6 +32,7 @@ import { PlaylistController } from './playlist/playlist.controller';
   controllers: [
     UserSessionController,
     UserController,
+    AlbumController,
     MusicController,
     PlaylistController,
   ],

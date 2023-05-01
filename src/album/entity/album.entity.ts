@@ -1,5 +1,5 @@
 import { MusicEntity } from 'src/music/entity/music.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity()
 export class AlbumEntity {
@@ -8,6 +8,10 @@ export class AlbumEntity {
 
   @Column()
   name: string;
+
+  @Column()
+  pictureUrl: string;
+  //assets/album/*.svg
 
   @OneToMany(() => MusicEntity, music => music.album)
   music: MusicEntity[];

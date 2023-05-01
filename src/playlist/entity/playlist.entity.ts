@@ -1,4 +1,4 @@
-import { Column, Entity,ManyToOne, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, ManyToMany, PrimaryGeneratedColumn, JoinTable } from 'typeorm';
 import { UserEntity } from '../../user/entity/user.entity';
 import { MusicEntity } from '../../music/entity/music.entity';
 
@@ -14,8 +14,10 @@ export class PlaylistEntity {
   private: boolean;
 
   @ManyToOne(() => UserEntity, user => user.playlists)
+  @JoinTable()
   user: UserEntity;
 
   @ManyToMany(() => MusicEntity, music => music.playlists)
+  @JoinTable()
   music: MusicEntity[];
 }
