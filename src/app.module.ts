@@ -6,20 +6,25 @@ import { UserService } from './user/user.service';
 import { UserController } from './user/user.controller';
 import { DBConfigService } from './config/db.config.service';
 import { ConfigModule } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
+import { UserModule } from './user/user.module'
+import { UserRepository } from './user/user.repository';
 
 @Module({
   imports: [
+    UserModule,
     ConfigModule.forRoot({
-      isGlobal:true
+      isGlobal: true
     }),
     TypeOrmModule.forRootAsync({
-      useClass:DBConfigService,
-      inject:[DBConfigService]
-    })
+      useClass: DBConfigService,
+      inject: [DBConfigService]
+    }),
+    TypeOrmModule.forFeature([UserRepository])
   ],
   controllers: [
     UserSessionController,
     UserController],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, JwtService],
 })
-export class AppModule {}
+export class AppModule { }
