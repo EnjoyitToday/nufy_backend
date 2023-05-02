@@ -10,6 +10,9 @@ export class PlaylistEntity {
   @Column()
   name: string;
 
+  @Column({ name: 'PHOTO_PATH', length: '250', nullable: false, default:`/assets/playlist/noPlaylistPicture.svg` })
+  photo_path: string;
+
   @Column()
   isPrivate: boolean;
 

@@ -6,9 +6,6 @@ import { UserRepository } from 'src/user/user.repository';
 import { AddMusicToPlaylistDto } from './dto/addMusicToPlaylist.dto';
 import { DeleteMusicFromPlaylistDto } from './dto/deleteMusicFromPlaylist.dto';
 import { MusicRepository } from 'src/music/music.repository';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
-import { InjectRepository } from '@nestjs/typeorm';
-import { MusicEntity } from '../music/entity/music.entity';
 
 @Injectable()
 export class PlaylistService {
@@ -42,6 +39,7 @@ export class PlaylistService {
 
     return playlists;
   }
+
   async createPlaylist(createPlaylist: createPlaylistDto): Promise<PlaylistEntity> {
     const user = await this.usersRepository.findById(createPlaylist.user_id)
     if (!user) {
@@ -53,8 +51,8 @@ export class PlaylistService {
     }
 
     const playlist = <PlaylistEntity>{
-      isPrivate: true,
       name: createPlaylist.playlist_name,
+      isPrivate: true,
       user: user,
     }
 

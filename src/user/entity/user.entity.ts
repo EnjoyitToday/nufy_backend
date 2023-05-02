@@ -16,6 +16,9 @@ export class UserEntity {
   @Column({ name: 'PASSWORD', length: '250', nullable: false })
   password: string;
 
+  @Column({ name: 'PHOTO_PATH', length: '250', nullable: false, default:'/assets/profile/noProfilePicture.svg' })
+  photo_path: string;
+
   @OneToMany(() => PlaylistEntity, playlist => playlist.user, { eager: true })
   playlists: PlaylistEntity[];
 }
