@@ -10,7 +10,7 @@ export class MusicRepository extends Repository<MusicEntity> {
     }
 
     async findByName(name: string): Promise<MusicEntity[]> {
-        return this.createQueryBuilder('music')
+        return await this.createQueryBuilder('music')
             .where('music.name LIKE :name', { name: `%${name}%` })
             .getMany();
     }

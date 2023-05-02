@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException, HttpException } from '@nestjs/common';
 import { PlaylistRepository } from './playlist.repository';
 import { PlaylistEntity } from './entity/playlist.entity';
 import { createPlaylistDto } from './dto/createPlaylist.dto';
@@ -6,6 +6,9 @@ import { UserRepository } from 'src/user/user.repository';
 import { AddMusicToPlaylistDto } from './dto/addMusicToPlaylist.dto';
 import { DeleteMusicFromPlaylistDto } from './dto/deleteMusicFromPlaylist.dto';
 import { MusicRepository } from 'src/music/music.repository';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MusicEntity } from '../music/entity/music.entity';
 
 @Injectable()
 export class PlaylistService {
@@ -64,7 +67,11 @@ export class PlaylistService {
     // implementar ainda pq agora to sem typeorm e nest
     const playlist = await this.playlistRepository.findById(addMusic.playlist_id)
 
-    const music = await this.musicRepository.findById(addMusic.playlist_id)
+    const music = await this.musicRepository.findById(addMusic.music_id)
+
+    if (!music) {
+      throw new BadRequestException("Erro")
+    }
 
     playlist.music.push(music);
 

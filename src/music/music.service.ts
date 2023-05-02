@@ -16,7 +16,7 @@ export class MusicService {
 
   @Get()
   async getMusicByName(music_name: string): Promise<MusicEntity[]> {
-    return this.musicRepository.findByName(music_name);
+    return await this.musicRepository.findByName(music_name);
   }
 
   // async getMusicByName(name: string): Promise<Music[]> {
