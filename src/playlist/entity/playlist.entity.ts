@@ -11,13 +11,13 @@ export class PlaylistEntity {
   name: string;
 
   @Column()
-  private: boolean;
+  isPrivate: boolean;
 
   @ManyToOne(() => UserEntity, user => user.playlists)
   @JoinTable()
   user: UserEntity;
 
-  @ManyToMany(() => MusicEntity, music => music.playlists)
+  @ManyToMany(() => MusicEntity, music => music.playlists, { eager: true })
   @JoinTable()
   music: MusicEntity[];
 }

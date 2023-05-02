@@ -22,6 +22,12 @@ export class PlaylistService {
     return playlists;
   }
 
+  async findById(id: number): Promise<PlaylistEntity> {
+    const playlist = await this.playlistRepository.findById(id)
+
+    return playlist
+  }
+
   async findUserPlaylists(userId: number): Promise<PlaylistEntity[]> {
     const user = await this.usersRepository.findById(userId)
 
@@ -44,7 +50,7 @@ export class PlaylistService {
     }
 
     const playlist = <PlaylistEntity>{
-      private: true,
+      isPrivate: true,
       name: createPlaylist.playlist_name,
       user: user,
     }

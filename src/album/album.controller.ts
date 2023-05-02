@@ -10,7 +10,7 @@ export class AlbumController {
 
     @Post()
     @HttpCode(201)
-    async createPlaylist(@Body() createAlbumDto: CreateAlbumDTO): Promise<AlbumEntity> {
+    async createAlbum(@Body() createAlbumDto: CreateAlbumDTO): Promise<AlbumEntity> {
         return this.albumService.createAlbum(createAlbumDto)
     };
 

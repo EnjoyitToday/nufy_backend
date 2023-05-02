@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { genSaltSync, hashSync } from "bcryptjs";
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
@@ -20,11 +21,11 @@ export class UserService {
     return await this.userRepository.findByUsername(name);
   }
 
-  async findById(userId: number): Promise<UserEntity | undefined> {
-    return await this.userRepository.findById(userId);
+  async findById(userId: number): Promise<UserDto | undefined> {
+    return UserDto.toDto(await this.userRepository.findById(userId));
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
+  async createUser(createUserDto: CreateUserDto): Promise<UserDto> {
     const { username, email, password } = createUserDto;
 
     if (!email.match(/\S+@\S+\.\S+/)) {
@@ -45,6 +46,8 @@ export class UserService {
 
     const user = this.userRepository.create({ username, email, password: hashedPassword });
 
-    return await this.userRepository.save(user);
+    const createdUser = await this.userRepository.save(user)
+
+    return UserDto.toDto(createdUser);
   }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Header, Headers, HttpCode, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, Headers, HttpCode, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { PlaylistService } from './playlist.service';
 import { createPlaylistDto } from './dto/createPlaylist.dto';
 import { AddMusicToPlaylistDto } from './dto/addMusicToPlaylist.dto';
@@ -27,6 +27,11 @@ export class PlaylistController {
   @Get('/user')
   async getByUserId(@Headers("user_id") userAuth: UserAuth): Promise<PlaylistEntity[]> {
     return await this.playlistService.findUserPlaylists(userAuth.userId);
+  };
+
+  @Get('/:id')
+  async getById(@Param("id") playlistId: number): Promise<PlaylistEntity> {
+    return await this.playlistService.findById(playlistId);
   };
 
   @Post('music')

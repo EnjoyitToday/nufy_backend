@@ -16,6 +16,6 @@ export class UserEntity {
   @Column({ name: 'PASSWORD', length: '250', nullable: false })
   password: string;
 
-  @OneToMany(() => PlaylistEntity, playlist => playlist.user)
+  @OneToMany(() => PlaylistEntity, playlist => playlist.user, { eager: true })
   playlists: PlaylistEntity[];
 }
