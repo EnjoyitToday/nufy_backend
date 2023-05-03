@@ -22,7 +22,8 @@ export class MusicEntity {
   @Column({ name: 'MUSIC_PATH', length: 50, nullable: false })
   path: string;
 
-  @ManyToOne(() => AlbumEntity, album => album.music)
+  @ManyToOne(() => AlbumEntity, album => album.music,{eager:true})
+  @JoinTable()
   album: AlbumEntity;
 
   @ManyToMany(() => PlaylistEntity, playlist => playlist.music)

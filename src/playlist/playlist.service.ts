@@ -23,7 +23,7 @@ export class PlaylistService {
   }
 
   async findById(id: number): Promise<PlaylistEntity> {
-    const playlist = await this.playlistRepository.findById(id)
+    const playlist = await this.playlistRepository.findById(id);
 
     return playlist
   }
