@@ -5,7 +5,7 @@ export class UserDto {
     id: number;
     username: string;
     email: string;
-    photo_path:string;
+    photo_path: string;
     playlists: PlaylistDto[];
 
 
@@ -17,14 +17,16 @@ export class UserDto {
         userDto.username = username;
         userDto.email = email;
         userDto.photo_path = photo_path
-        userDto.playlists = userEntity.playlists.map((playlistEntity) => {
-            const playlistDto = new PlaylistDto();
-            playlistDto.id = playlistEntity.id;
-            playlistDto.name = playlistEntity.name;
-            playlistDto.isPrivate = playlistEntity.isPrivate;
-            playlistDto.photo_path= playlistEntity.photo_path;
-            return playlistDto;
-        });
+        if (userEntity.playlists) {
+            userDto.playlists = userEntity.playlists.map((playlistEntity) => {
+                const playlistDto = new PlaylistDto();
+                playlistDto.id = playlistEntity.id;
+                playlistDto.name = playlistEntity.name;
+                playlistDto.isPrivate = playlistEntity.isPrivate;
+                playlistDto.photo_path = playlistEntity.photo_path;
+                return playlistDto;
+            });
+        }
 
         return userDto;
     }

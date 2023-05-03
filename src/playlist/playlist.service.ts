@@ -63,9 +63,9 @@ export class PlaylistService {
 
   async addMusicOnPlaylist(addMusic: AddMusicToPlaylistDto): Promise<PlaylistEntity> {
     // implementar ainda pq agora to sem typeorm e nest
-    const playlist = await this.playlistRepository.findById(addMusic.playlist_id)
+    const playlist = await this.playlistRepository.findById(addMusic.addMusicOnPlaylistDTO.playlist_id)
 
-    const music = await this.musicRepository.findById(addMusic.music_id)
+    const music = await this.musicRepository.findById(addMusic.addMusicOnPlaylistDTO.music_id)
 
     if (!music) {
       throw new BadRequestException("Erro")
