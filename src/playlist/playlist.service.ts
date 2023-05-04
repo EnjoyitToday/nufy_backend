@@ -16,8 +16,8 @@ export class PlaylistService {
 
   ) { }
 
-  async getAll(): Promise<PlaylistEntity[]> {
-    const playlists: PlaylistEntity[] = await this.playlistRepository.find();
+  async getAllPublic(): Promise<PlaylistEntity[]> {
+    const playlists: PlaylistEntity[] = await this.playlistRepository.find({where:{ isPrivate: false } });
 
     return playlists;
   }

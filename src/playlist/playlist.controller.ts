@@ -20,8 +20,8 @@ export class PlaylistController {
   };
 
   @Get()
-  async getAll(): Promise<PlaylistEntity[]> {
-    return await this.playlistService.getAll();
+  async getAllPublic(): Promise<PlaylistEntity[]> {
+    return await this.playlistService.getAllPublic();
   };
 
   @Get('/user')
