@@ -50,4 +50,37 @@ export class UserService {
 
     return UserDto.toDto(createdUser);
   }
+
+  async update(id: number, user: UserDto) {
+    if (user.email) {
+      await this.updateEmail(id, user.email)
+    }
+    if (user.password) {
+      await this.updatePassword(id, user.password)
+    }
+    if (user.username) {
+      await this.updateUsername(id, user.username)
+    }
+  }
+
+  async updateEmail(userId: number, email: string): Promise<any> {
+    var user = await this.userRepository.findById(userId)
+    user.email = email
+    await this.userRepository.save(user)
+    return
+  }
+  async updateUsername(userId: number, username: string): Promise<any> {
+    var user = await this.userRepository.findById(userId)
+    user.username = username
+    await this.userRepository.save(user)
+    return
+  }
+  async updatePassword(userId: number, password: string): Promise<any> {
+    const salt = genSaltSync();
+    const hashedPassword = hashSync(password, salt);
+    var user = await this.userRepository.findById(userId)
+    user.password = hashedPassword
+    await this.userRepository.save(user)
+    return
+  }
 }

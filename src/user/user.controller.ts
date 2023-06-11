@@ -23,20 +23,10 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch('username')
-  async updateUsername(@Body() username: string): Promise<UserEntity> {
-    return;
-  }
-
-  @UseGuards(AuthGuard)
-  @Patch('email')
-  async updateEmail(@Body() email: string): Promise<UserEntity> {
-    return;
-  }
-
-  @UseGuards(AuthGuard)
-  @Patch('password')
-  async updatePassword(@Body() password: string): Promise<UserEntity> {
+  @Put()
+  async update(@Headers('user_id') userId: UserAuth, @Body() user: UserDto): Promise<UserEntity> {
+    console.log(user)
+    await this.userService.update(userId.userId, user)
     return;
   }
 
